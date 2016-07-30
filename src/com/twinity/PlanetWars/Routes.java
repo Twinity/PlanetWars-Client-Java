@@ -17,7 +17,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 public class Routes {
 
     public static World getServerState() throws IOException {
-        URL url = new URL("localhost:" + ServerConfig.getServerPort() + "/serverdata");
+        URL url = new URL("http://localhost:" + ServerConfig.getServerPort() + "/serverdata");
         Gson gson = new Gson();
 
         HttpURLConnection request = (HttpURLConnection) url.openConnection();
@@ -28,7 +28,7 @@ public class Routes {
     }
 
     public static int sendState(ArmyMovement[] inArmyMovement) throws IOException {
-        String url = "localhost:" + ServerConfig.getServerPort() + "/clientdata";
+        String url = "http://localhost:" + ServerConfig.getServerPort() + "/clientdata";
         Gson gson = new Gson();
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(url);
