@@ -10,4 +10,10 @@ public class ArmyMovement {
     private int destination;
     private int armyCount;
 
+    public ArmyMovement(int inSource, int inDestination, int inArmyCount) {
+        this.source = inSource;
+        this.destination = inDestination;
+        this.armyCount = inArmyCount;
+    }
+
 }
