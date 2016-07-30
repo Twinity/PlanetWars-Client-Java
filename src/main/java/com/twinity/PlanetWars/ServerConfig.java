@@ -1,7 +1,10 @@
 /**
  * Created by Borderliner on 7/30/2016.
  */
-public static enum ServerConfig {
+
+package com.twinity.PlanetWars;
+
+public class ServerConfig {
     private static int _port = 0;
     private static int _minThreads = 2;
     private static int _maxThreads = 8;
