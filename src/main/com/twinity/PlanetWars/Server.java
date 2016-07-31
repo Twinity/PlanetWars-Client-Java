@@ -9,17 +9,11 @@ import java.io.IOException;
 public class Server {
 
     public Server() {
-        setConfigs();
         try {
             runServer();
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
-
-    }
-
-    private void setConfigs() {
-
     }
 
     private void runServer() throws IOException {
