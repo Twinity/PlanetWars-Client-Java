@@ -18,9 +18,9 @@ public class Server {
 
     private void runServer() throws IOException {
         AI ai = new AI();
-        World world = new World();
+        World world;
 
-        while (true) {
+        do {
             world = Routes.getServerState();
             ArmyMovement[] movementList = ai.doTurn(world);
             int status = Routes.sendState(movementList);
@@ -34,5 +34,6 @@ public class Server {
                 break;
             }
         }
+        while (world.getCurrentTurn() <= world.getTotalTurns());
     }
 }
