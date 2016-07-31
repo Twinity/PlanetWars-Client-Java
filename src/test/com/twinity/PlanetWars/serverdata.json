@@ -1,0 +1,61 @@
+{
+  "totalTurns" : 30,
+  "currentTurn" : 1,
+  "remainingTurns" : 29,
+  "myNodes" : [
+    {
+      "id" : 101,
+      "armyCount" : 20,
+      "owner" : 1,
+      "adjacents" : [102, 103]
+    },
+    {
+      "id" : 102,
+      "armyCount" : 10,
+      "owner" : 1,
+      "adjacents": [101, 103]
+    }
+  ],
+  "allNodes" : [
+    {
+      "id" : 101,
+      "armyCount" : 20,
+      "owner" : 1,
+      "adjacents" : [102, 103]
+    },
+    {
+      "id" : 102,
+      "armyCount" : 10,
+      "owner" : 1,
+      "adjacents": [101, 103]
+    },
+    {
+      "id" : 103,
+      "armyCount" : 0,
+      "owner" : 0,
+      "adjacents": [101, 102]
+    },
+    {
+      "id" : 104,
+      "armyCount" : 20,
+      "owner" : 2,
+      "adjacents": [103, 102]
+    }
+  ],
+  "opponentNodes" : [
+    {
+      "id" : 104,
+      "armyCount" : 20,
+      "owner" : 2,
+      "adjacents": [103, 102]
+    }
+  ],
+  "freeNodes" : [
+    {
+      "id" : 103,
+      "armyCount" : 0,
+      "owner" : 0,
+      "adjacents": [101, 102]
+    }
+  ]
+}
