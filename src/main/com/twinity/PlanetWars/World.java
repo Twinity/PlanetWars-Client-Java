@@ -12,7 +12,9 @@ public class World {
     private Node[] freeNodes;
     private int totalTurns;
     private int currentTurn;
-    private int remainingTurns;
+    private int myId;
+    private int opponentId;
+    private int neutralId;
 
     public Node[] getMyNodes() {
         return myNodes;
@@ -39,7 +41,19 @@ public class World {
     }
 
     public int getRemainingTurns() {
-        return remainingTurns;
+        return getTotalTurns() - getCurrentTurn();
+    }
+
+    public int getMyId() {
+        return myId;
+    }
+
+    public int getOpponentId() {
+        return opponentId;
+    }
+
+    public int getNeutralId() {
+        return neutralId;
     }
 
 }
