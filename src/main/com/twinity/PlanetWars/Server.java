@@ -31,8 +31,8 @@ public class Server {
         do {
             world = Routes.getServerState();
             ArmyMovement[] movementList = ai.doTurn(world);
-            int status = Routes.sendState(movementList);
-            if (status != 200) {
+            String response = Routes.sendState(movementList);
+            if (!response.equals("OK")) {
                 System.out.println("Server is not responding...");
                 ServerConfig.setClientRetryTimes(ServerConfig.getClientRetryTimes() - 1);
             }
