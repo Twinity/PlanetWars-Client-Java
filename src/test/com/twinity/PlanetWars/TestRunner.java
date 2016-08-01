@@ -34,7 +34,7 @@ public class TestRunner {
     public static String readJson() {
         String content = "";
         try{
-            content = new Scanner(new File("C:\\Users\\Golsa\\serverdata.json")).useDelimiter("\\Z").next();
+            content = new Scanner(new File(System.getProperty("user.dir") + "\\serverdata.json")).useDelimiter("\\Z").next();
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -51,6 +51,11 @@ public class TestRunner {
         Spark.post("/clientdata", (req, res) -> {
             ArmyMovement[] am = gson.fromJson(req.body(), ArmyMovement[].class);
             res.body("OK");
+            return res.body();
+        });
+
+        Spark.get("/getid", (req, res) -> {
+            res.body("569");
             return res.body();
         });
     }
