@@ -23,7 +23,13 @@ public class RoutesTest {
         am[0] = new ArmyMovement(101, 102, 20);
         am[1] = new ArmyMovement(103, 105, 10);
         am[2] = new ArmyMovement(104, 101, 5);
-        int status = Routes.sendState(am);
-        Assert.assertEquals(200, status);
+        String response = Routes.sendState(am);
+        Assert.assertEquals("OK", response);
+    }
+
+    @Test
+    public void testGetId() {
+        int idFromServer = Routes.getIdFromServer();
+        Assert.assertEquals(569, idFromServer);
     }
 }
