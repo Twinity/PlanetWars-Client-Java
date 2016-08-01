@@ -1,7 +1,9 @@
 {
   "totalTurns" : 30,
   "currentTurn" : 1,
-  "remainingTurns" : 29,
+  "myId" : 569,
+  "opponentId" : 439,
+  "neutralId" : 0,
   "myNodes" : [
     {
       "id" : 101,
