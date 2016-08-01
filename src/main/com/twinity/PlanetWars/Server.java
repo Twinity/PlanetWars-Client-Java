@@ -5,8 +5,11 @@
 package com.twinity.PlanetWars;
 
 import java.io.IOException;
+import java.net.ConnectException;
 
 public class Server {
+
+    private static int myId = 0;
 
     public Server() {
         try {
@@ -19,6 +22,11 @@ public class Server {
     private void runServer() throws IOException {
         AI ai = new AI();
         World world;
+        myId = Routes.getIdFromServer();
+
+        if(myId == 0) {
+            throw new ConnectException();
+        }
 
         do {
             world = Routes.getServerState();
@@ -35,5 +43,9 @@ public class Server {
             }
         }
         while (world.getCurrentTurn() <= world.getTotalTurns());
+    }
+
+    public static int getMyId() {
+        return myId;
     }
 }
