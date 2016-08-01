@@ -4,13 +4,15 @@
 
 package com.twinity.PlanetWars;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.net.URL;
 
-import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.*;
+import okhttp3.*;
 
 public class Routes {
+
+    private static final OkHttpClient client = new OkHttpClient();
 
     public static World getServerState() {
         URL url;
@@ -18,7 +20,14 @@ public class Routes {
 
         try {
             url = new URL("http://localhost:" + ServerConfig.getServerPort() + "/serverdata");
-            data = HttpRequest.get(url).header("X-Request-ID", Server.getMyId()).body();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .addHeader("X-Request-ID", String.valueOf(Server.getMyId()))
+                    .build();
+            Response response = client.newCall(request).execute();
+
+            data = response.body().string();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -29,19 +38,25 @@ public class Routes {
 
     public static String sendState(ArmyMovement[] inArmyMovement) {
         URL url;
-        String response = "";
+        String data = "";
         String jsonToSend = new Gson().toJson(inArmyMovement);
+        final MediaType JSON_TYPE =
+                MediaType.parse("application/json");
+
         try {
             url = new URL("http://localhost:" + ServerConfig.getServerPort() + "/clientdata");
-            response = HttpRequest.post(url)
-                    .contentType("application/json")
-                    .send(jsonToSend.getBytes())
-                    .header("X-Request-ID", Server.getMyId())
-                    .body();
-        } catch (MalformedURLException ex) {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(RequestBody.create(JSON_TYPE, jsonToSend))
+                    .addHeader("X-Request-ID", String.valueOf(Server.getMyId()))
+                    .build();
+            Response response = client.newCall(request).execute();
+
+            data = response.body().string();
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return response;
+        return data;
     }
 
     public static int getIdFromServer() {
@@ -50,8 +65,13 @@ public class Routes {
 
         try {
             url = new URL("http://localhost:" + ServerConfig.getServerPort() + "/getid");
-            data = HttpRequest.get(url).body();
-        } catch (MalformedURLException ex) {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            Response response = client.newCall(request).execute();
+            data = response.body().string();
+
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
 
