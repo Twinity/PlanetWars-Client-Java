@@ -12,8 +12,8 @@ public class AI {
         ArrayList<ArmyMovement> am = new ArrayList<>();
 
         for (Node node : world.getMyNodes()) {
-            int dest = node.getAdjacents()[(int)(Math.round(Math.random() * node.getAdjacents().length))];
-            am.add(new ArmyMovement(node.getId(), dest, node.getArmyCount() / ((int)Math.round(Math.random() * node.getArmyCount()))));
+            int dest = node.getAdjacents()[(int)(Math.random() * 3)];
+            am.add(new ArmyMovement(node.getId(), dest, node.getArmyCount() / 2));
         }
 
         return am.toArray(new ArmyMovement[am.size()]);
