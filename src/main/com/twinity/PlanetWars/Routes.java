@@ -28,22 +28,21 @@ public class Routes {
         return world;
     }
 
-    public static int sendState(ArmyMovement[] inArmyMovement) {
+    public static String sendState(ArmyMovement[] inArmyMovement) {
         URL url;
-
+        String response = "";
         String jsonToSend = new Gson().toJson(inArmyMovement);
-        int status = 500;
         try {
             url = new URL("http://localhost:" + ServerConfig.getServerPort() + "/clientdata");
-            status = HttpRequest.post(url)
+            response = HttpRequest.post(url)
                     .contentType("application/json")
                     .send(jsonToSend.getBytes())
                     .header("X-Request-ID", Server.getMyId())
-                    .code();
+                    .body();
         } catch (MalformedURLException ex) {
             ex.printStackTrace();
         }
-        return status;
+        return response;
     }
 
     public static int getIdFromServer() {
