@@ -18,19 +18,25 @@ public class Routes {
         URL url;
         String data = "";
 
-        try {
-            url = new URL("http://localhost:" + ServerConfig.getServerPort() + "/serverdata");
-            Request request = new Request.Builder()
-                    .url(url)
-                    .addHeader("X-Request-ID", String.valueOf(Server.getMyId()))
-                    .build();
-            Response response = client.newCall(request).execute();
+        do {
+            try {
+                url = new URL("http://localhost:" + ServerConfig.getServerPort() + "/serverdata");
+                Request request = new Request.Builder()
+                        .url(url)
+                        .addHeader("X-Request-ID", String.valueOf(Server.getMyId()))
+                        .build();
+                Response response = client.newCall(request).execute();
 
-            data = response.body().string();
+                data = response.body().string();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+                if (data.equals("wait")) {
+                    Thread.sleep(1000);
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } while (data.equals("wait"));
 
         World world = new Gson().fromJson(data, World.class);
         return world;
