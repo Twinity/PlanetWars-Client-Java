@@ -9,9 +9,13 @@ import java.util.ArrayList;
 public class AI {
     public ArmyMovement[] doTurn(World world) {
 
-        ArrayList<ArmyMovement> move = new ArrayList<>();
-        move.add(new ArmyMovement(101, 102, 20));
+        ArrayList<ArmyMovement> am = new ArrayList<>();
 
-        return move.toArray(new ArmyMovement[move.size()]);
+        for (Node node : world.getMyNodes()) {
+            int dest = node.getAdjacents()[(int)(Math.round(Math.random() * node.getAdjacents().length))];
+            am.add(new ArmyMovement(node.getId(), dest, node.getArmyCount() / ((int)Math.round(Math.random() * node.getArmyCount()))));
+        }
+
+        return am.toArray(new ArmyMovement[am.size()]);
     }
 }
