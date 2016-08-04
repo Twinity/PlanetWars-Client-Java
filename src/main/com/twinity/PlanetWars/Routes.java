@@ -61,6 +61,8 @@ public class Routes {
                 Response response = client.newCall(request).execute();
 
                 data = response.body().string();
+
+                return data;
             } catch (Exception ex) {
                 if (--retryCount == 0) {
                     System.out.println("Server not responding. Shutting down...");
@@ -73,7 +75,7 @@ public class Routes {
             }
         } while (retryCount != 0);
 
-        return data;
+        return "";
     }
 
     public static int getIdFromServer() {
@@ -90,6 +92,7 @@ public class Routes {
                 Response response = client.newCall(request).execute();
                 data = response.body().string();
 
+                return Integer.parseInt(data);
             } catch (Exception ex) {
                 if (--retryCount == 0) {
                     System.out.println("Server not responding. Shutting down...");
@@ -102,8 +105,7 @@ public class Routes {
             }
         } while (retryCount != 0);
 
-
-        return Integer.parseInt(data);
+        return 0;
     }
 
 }
