@@ -68,18 +68,29 @@ public class Routes {
     public static int getIdFromServer() {
         URL url;
         String data = "";
+        int retryCount = ServerConfig.getClientRetryTimes();
 
-        try {
-            url = new URL("http://localhost:" + ServerConfig.getServerPort() + "/getid");
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            Response response = client.newCall(request).execute();
-            data = response.body().string();
+        do {
+            try {
+                url = new URL("http://localhost:" + ServerConfig.getServerPort() + "/getid");
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+                Response response = client.newCall(request).execute();
+                data = response.body().string();
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+            } catch (Exception ex) {
+                if (--retryCount == 0) {
+                    System.out.println("Server not responding. Shutting down...");
+                    System.exit(1);
+                }
+                System.out.println("Could not connect to server. Retrying...");
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception ex2) {ex2.printStackTrace();}
+            }
+        } while (retryCount != 0);
+
 
         return Integer.parseInt(data);
     }
