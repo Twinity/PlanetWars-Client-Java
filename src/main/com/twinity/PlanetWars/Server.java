@@ -33,13 +33,13 @@ public class Server {
             ArmyMovement[] movementList = ai.doTurn(world);
             String response = Routes.sendState(movementList);
             if (!response.equals("OK")) {
-                System.out.println("Server is not responding...");
+                System.out.println("Server returned illegal token.");
                 ServerConfig.setClientRetryTimes(ServerConfig.getClientRetryTimes() - 1);
             }
 
             if (ServerConfig.getClientRetryTimes() == 0) {
                 System.out.println("Server is not responding. Shutting down...");
-                break;
+                System.exit(1);
             }
         }
         while (world.getCurrentTurn() <= world.getTotalTurns());
